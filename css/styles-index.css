@@ -1,0 +1,39 @@
+/*IMPORTING FONTS*/
+@import url('https://fonts.googleapis.com/css?family=Red+Hat+Text&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Pontano+Sans&display=swap');
+
+/* BLOCK ===================== */
+h1, h2, h3, h4, h5, h6 { 
+  font-family: "Red Hat Text"; 
+  color: #fff; 
+  text-shadow: .5px .5px .5px #000; 
+}
+
+span, p { font-family: 'Pontano Sans'; }
+
+
+
+
+/* ELEMENTS ========================= */
+.header__title { font-size: 24.5px; }
+.img__presentation { width: 125px; filter: drop-shadow(.5px .5px 1.5px #000); }
+.currency { width: 50px; }
+
+
+
+
+
+
+
+
+
+/* MODIFIERS ======================== */
+@media (min-width: 576px) { 
+  .header__title { font-size: 36px; }
+  .img__presentation { width: 150px; }
+}
+
+@media (min-width: 768px) { 
+  .header__title { font-size: 45px; }
+  .img__presentation { width: 160px; }
+}
