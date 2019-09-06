@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/vendors/bootstrap.min.css">
   <link rel="stylesheet" href="css/vendors/mdb.min.css">
   <link rel="stylesheet" href="css/vendors/all.min.css">
-
+  <link rel="stylesheet" href="css/vendors/flag-icon-css/css/flag-icon.min.css">
   <!-- SELF -->
   <link rel="stylesheet" href="css/styles-index.css">
 </head>
@@ -29,7 +29,7 @@
     <div class="collapse navbar-collapse" id="mainNavbar">
       <ul class="navbar-nav ml-auto mt-lg-0 text-center">
         <li class="nav-item active mr-2 mb-2 mb-lg-0">
-          <a class="nav-link" href="#"><i class="fal fa-igloo"></i> Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.html"><i class="fal fa-igloo"></i> Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#"><i class="fal fa-info-circle"></i> About</a>
@@ -71,23 +71,24 @@
         <div class="row">
           <div class="col-md-12">
             <div class="tableValues__ratesValues rounded mt-3">
-              <p class="text-white text-center"><strong>1USD =</strong></p>
+              <p class="text-white text-center"><strong>1 USD =</strong></p>
 
               <div class="container">
                 <div class="row">
                   <div class="col-md-12">
-                    <table class="table table-bordered z-depth-1 oneUsdTable">
+
+                    <table class="table table-bordered z-depth-1 oneUsdTable table-hover">
                       <thead>
                         <tr class="text-dark bg-white text-center">
                           <th scope="col">Currency <i class="fas fa-usd-circle text-success"></i></th>
                           <th scope="col">Value <i class="fal fa-sack-dollar text-success"></i></th>
                         </tr>
                       </thead>
-                      
-                    </table>
+                    </table><!--end of table-->
+
                   </div>
                 </div>
-              </div>
+              </div><!--end of container-->
 
             </div><!--end of tableValues__ratesValues-->
 
@@ -95,9 +96,69 @@
         </div>
       </div><!--end of container-->
 
-    </section><!--end of main__tableValues-->
-  </main><!--end of main-->
+      <p class="text-center text-white">Last Update: <span id="last-updated"></span></p>
 
+    </section><!--end of main__tableValues-->
+
+    <section class="main__convertValues">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+              <div class="row d-flex justify-content-center convertValues__bothSelect">
+                <div class="col-md-2">
+                  <select class="mdb-select md-form first-select">
+                    <option value="" disabled selected>Exchange From...</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                    <option value="CAD">CAD</option>
+                    <option value="AUD">AUD</option>
+                    <option value="RON">RON</option>
+                  </select>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="md-form">
+                      <input type="text" id="fromSelect" class="form-control text-white">
+                      <label for="fromSelect" id="inputValue" class="text-white">Value in <span class="valueFrom"></span></label>
+                    </div><!--end of md-form exchange-From-->
+                </div>
+
+                <div class="col-md-2">
+                    <select class="mdb-select md-form second-select">
+                      <option value="" disabled selected>Exchange To...</option>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="GBP">GBP</option>
+                      <option value="CAD">CAD</option>
+                      <option value="AUD">AUD</option>
+                      <option value="RON">RON</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="md-form">
+                    <input disabled type="text" id="toSelect" class="form-control text-white">
+                    <label for="toSelect" id="returnValue" class="text-white">Value in <span class="valueTo"></span></label>
+                  </div><!--end of md-form exchange-From-->
+                </div>
+
+                <div class="col-md-2 d-flex align-items-center mt-3">
+                  <a class="btn-floating btn-sm btn-success d-none d-md-block"><i class="far fa-money-bill-wave"></i></a>
+                </div>
+                
+                <div class="col-12 d-flex justify-content-center">
+                  <a class="btn-floating d-block d-md-none btn-md btn-success mt-0"><i class="far fa-money-bill-wave"></i></a>
+                </div>
+            </div><!--end of row-->
+
+          </div>
+        </div>
+      </div><!--end of container-->
+
+    </section><!--end of main convertValues-->
+  </main><!--end of main-->
 
 
 
@@ -109,5 +170,6 @@
   <script src="js/vendors/mdb.min.js"></script>
   <script src="js/vendors/moment.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/currencyExchange.js"></script>
 </body>
 </html>

@@ -26,7 +26,6 @@ span, p { font-family: 'Pontano Sans'; }
 
 
 
-
 /* MODIFIERS ======================== */
 @media (min-width: 576px) { 
   .header__title { font-size: 36px; }
