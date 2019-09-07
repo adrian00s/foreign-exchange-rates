@@ -62,16 +62,18 @@
   
       let pattern = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.)\d+)?$/;
 
-      if (fromInput.value.match(pattern) && $(fromInput).val().indexOf("-") < 0){
+      if (fromInput.value.match(pattern) && $(fromInput).val().indexOf("-") < 0 && $('select.second-select').find(':selected').val() !== "disabled"){
         counter++;
         performCalculations(fromInput.value);
         exchangeHistoryTable(counter, $('select.first-select').val(), $('select.second-select').val(), $('input#fromSelect').val(), $('#returnValue').text(), formatDateOrder);
+      }else if (!Number(fromInput.value) && $('select.second-select').find(':selected').val() === "disabled" || Number(fromInput.value) && $('select.second-select').find(':selected').val() === "disabled"){
+        whereToPrint.innerHTML = `<strong class="text-danger font-weight-bold">Choose currency!</strong>`;
       }else if (fromInput.value === ""){
         whereToPrint.innerHTML = `Value in <span class="valueTo">${$('select.second-select').val()}</span>`;
       }else{
         whereToPrint.innerHTML = `<strong class="text-danger font-weight-bold">Only numbers and .!</strong>`;
-      }
-
+      }     
+     
       // Pass date accordingly
       function formatDateOrder(){
         const momjs = moment().format("DD-MM-YY, h:mm A");
