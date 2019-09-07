@@ -1,9 +1,8 @@
 (function(){
 
+  let counter = 0;
   // When DOM is ready
   $(function(){
-    requestCurrencyData($('select.first-select').val());
-
     setLabels();
   }());
 
@@ -12,28 +11,22 @@
       method: 'GET'
     }).done(function(data){
       calculateOutputValue(data);
-      console.log(data.rates)
     });
   }
 
-  function getSelectValueFirst(e){
-    requestCurrencyData($("select.first-select").val());
-
-    setLabelFrom();
-
-    // Stop event propagation
-    e.stopPropagation();
+  function getSelectValueFirst(){
+    requestCurrencyData($('select.first-select').val());
   }
 
-  // added select.second-select to retrieve data again when changing select option (bug)
-  $('.col-md-2').on('change', 'select.first-select, select.second-select', getSelectValueFirst);
+  // Request everytime you click the button and set the labels when you change the select option
+  $('.btn-floating').on('click', getSelectValueFirst);
   $('.col-md-2').on('change', 'select.first-select, select.second-select', setLabels);  
 
   // Calculations
   function calculateOutputValue(data){
     let secondSelect = $('select.second-select').val();
     let symbol;
-    
+   
     switch(secondSelect){
       case "EUR": {
         symbol = "€";
@@ -59,26 +52,31 @@
       let whereToPrint = document.getElementById('returnValue');
       let calculate = (data.rates[secondSelect] !== undefined) ? data.rates[secondSelect] : data.rates[secondSelect] = 1.00;
 
-      whereToPrint.innerHTML = `
-      <strong class="text-success font-weight-bold">${symbol}${(getUserInput * calculate).toFixed(2)}</strong>`;
+      $(whereToPrint).html(`
+      <strong class="text-success font-weight-bold">${symbol}${(getUserInput * calculate).toFixed(2)}</strong>`).hide().fadeIn(); 
     }
-
     // set pattern input
     function setPattern(){
       let fromInput = document.getElementById('fromSelect');
       let whereToPrint = document.getElementById('returnValue');
   
       let pattern = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.)\d+)?$/;
-      
-      $('.btn-floating').on('click', function(){
-        if (fromInput.value.match(pattern)){
-          performCalculations(fromInput.value);
-        }else if (fromInput.value === ""){
-          whereToPrint.innerHTML = `Value in <span class="valueTo">${$('select.second-select').val()}</span>`;
-        }else{
-          whereToPrint.innerHTML = `<strong class="text-danger font-weight-bold">Only numbers and .!</strong>`;
-        }
-      });
+
+      if (fromInput.value.match(pattern) && $(fromInput).val().indexOf("-") < 0){
+        counter++;
+        performCalculations(fromInput.value);
+        exchangeHistoryTable(counter, $('select.first-select').val(), $('select.second-select').val(), $('input#fromSelect').val(), $('#returnValue').text(), formatDateOrder);
+      }else if (fromInput.value === ""){
+        whereToPrint.innerHTML = `Value in <span class="valueTo">${$('select.second-select').val()}</span>`;
+      }else{
+        whereToPrint.innerHTML = `<strong class="text-danger font-weight-bold">Only numbers and .!</strong>`;
+      }
+
+      // Pass date accordingly
+      function formatDateOrder(){
+        const momjs = moment().format("DD-MM-YY, h:mm A");
+        return momjs;
+      }
     }
 
     setPattern();
@@ -98,5 +96,54 @@
   function setLabels(){
     setLabelFrom();
     setLabelTo();
+  }
+
+  // Create table to see all the exchanges you made
+  function exchangeHistoryTable(counter, firstSelect, secondSelect,  fSelectInputVal, sSelectInputVal, dateFN){
+    // Switch currency symobol
+    let symbol;
+
+    switch(firstSelect){
+      case "EUR": {
+        symbol = "€";
+        break;
+      }
+      case "GBP": {
+        symbol = "£";
+        break;
+      }
+      case "RON": {
+        symbol = "LEU ";
+        break;
+      }
+      default: {
+        symbol = "$";
+        break;
+      }
+    }
+
+    let from = firstSelect+ " " + symbol+fSelectInputVal;
+    let to = secondSelect + " " +sSelectInputVal;
+
+    // Set everything in sessionStorage
+    sessionStorage.setItem("counter", counter);
+    sessionStorage.setItem("date", dateFN());
+    sessionStorage.setItem("exchangeFrom", from);
+    sessionStorage.setItem("exchangeTo", to);
+
+    let $tableBody = $('#table-body');
+
+    let printTable = ` 
+    <tr class="text-center">
+      <th class="font-weight-bold pink-text">${sessionStorage.getItem("counter")}</th>
+      <td class="font-weight-bold">${sessionStorage.getItem("date")}</td>
+      <td class="text-success font-weight-bold">${sessionStorage.getItem("exchangeFrom")}</td>
+      <td class="text-success font-weight-bold">${sessionStorage.getItem("exchangeTo")}</td>
+    </tr>
+    `;
+
+    $tableBody.html(function(i, c){
+      return c += printTable;
+    });
   }
 }());
