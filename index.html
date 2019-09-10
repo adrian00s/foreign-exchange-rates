@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="css/vendors/mdb.min.css">
   <link rel="stylesheet" href="css/vendors/all.min.css">
   <link rel="stylesheet" href="css/vendors/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" href="css/vendors/apexcharts.css">
+
   <!-- SELF -->
   <link rel="stylesheet" href="css/styles-index.css">
 </head>
@@ -22,7 +24,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="index.html">
       <img src="./img/logo.png" height="35" alt="Exchange Rates logo">
     </a>
 
@@ -168,7 +170,7 @@
             <h4 class="text-center mt-3 mb-3 d-block d-md-none">Your exchange History</h4>
 
             <div class="table-responsive text-nowrap">
-              <table class="table bg-white">
+              <table class="table bg-white z-depth-1">
                 <thead class="mdb-color darken-3 white-text">
                   <tr class="text-center">
                     <th>Order</th>
@@ -188,11 +190,59 @@
       </div><!--end of container-->
 
     </section><!--end of main__exchangeHistory-->
+
+    <section class="main__graphRates">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="text-center d-none d-md-block mt-3 mb-3">Historical Rates for <span class="choosenCurrency font-weight-bold"></span> </h2>
+            <h4 class="text-center mt-5 mb-3 d-block d-md-none">Historical Rates for <span class="choosenCurrency font-weight-bold"></span></h4>
+          </div>
+
+          <div class="col-md-12 d-lg-flex justify-content-center">
+            <select class="mdb-select md-form historical-select">
+              <option value="disabled" disabled selected>Select Currency...</option>
+              <option value="USD">USD</option>
+              <option value="GBP">GBP</option>
+              <option value="CAD">CAD</option>
+              <option value="AUD">AUD</option>
+              <option value="RON">RON</option>
+            </select>
+          </div>
+          
+
+          <div class="col-md-12">
+            <p class="text-center text-white hystory-currency d-none">1 EUR = </p>
+          </div>
+
+        </div>
+      </div><!--end of container-->
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="chart" class="bg-white z-depth-1">
+        
+            </div>
+          </div>
+        </div>
+      </div><!--end of container-->
+
+    </section><!--end of main__graphRates-->
   </main><!--end of main-->
 
+  <footer class="page-footer font-small mdb-color darken-3 z-depth-1 mt-4 pt-3">
 
+    <div class="container">
+      <p class="text-center">Made with <i class="fas text-danger fa-heart"></i> by <a href="https://github.com/adrian00s" target="_blank"><u>Adrian</u></a></p>
+    </div>
 
+    <div class="footer-copyright text-center py-2">© 2019 Copyright:
+      <a href="https://github.com/adrian00s" target="_blank">Adrian Iordache</a>
+    </div><!--end of footer-copyright-->
 
+  </footer><!--end of footer-->
 
   <!-- SCRIPTS -->
   <script src="js/vendors/jquery-3.4.1.min.js"></script>
@@ -200,6 +250,9 @@
   <script src="js/vendors/mdb.min.js"></script>
   <script src="js/vendors/moment.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/vendors/apexcharts.min.js"></script>
   <script src="js/currencyExchange.js"></script>
+  <script src="js/historyChart.js"></script>
+
 </body>
 </html>
