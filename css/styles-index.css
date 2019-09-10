@@ -36,3 +36,4 @@ span, p { font-family: 'Pontano Sans'; }
   .header__title { font-size: 45px; }
   .img__presentation { width: 160px; }
 }
+.apply-shadow { text-shadow: 1px 1px 1px #000; }

@@ -1,6 +1,7 @@
 (function(){
 
   let counter = 0;
+
   // When DOM is ready
   $(function(){
     setLabels();
@@ -126,26 +127,27 @@
 
     let from = firstSelect+ " " + symbol+fSelectInputVal;
     let to = secondSelect + " " +sSelectInputVal;
-
-    // Set everything in sessionStorage
-    sessionStorage.setItem("counter", counter);
-    sessionStorage.setItem("date", dateFN());
-    sessionStorage.setItem("exchangeFrom", from);
-    sessionStorage.setItem("exchangeTo", to);
+   
+    // Set everything in localStorage
+    localStorage.setItem("counter", counter);
+    localStorage.setItem("date", dateFN());
+    localStorage.setItem("exchangeFrom", from);
+    localStorage.setItem("exchangeTo", to);
 
     let $tableBody = $('#table-body');
 
-    let printTable = ` 
-    <tr class="text-center">
-      <th class="font-weight-bold pink-text">${sessionStorage.getItem("counter")}</th>
-      <td class="font-weight-bold">${sessionStorage.getItem("date")}</td>
-      <td class="text-success font-weight-bold">${sessionStorage.getItem("exchangeFrom")}</td>
-      <td class="text-success font-weight-bold">${sessionStorage.getItem("exchangeTo")}</td>
-    </tr>
+      let printTable = ` 
+        <tr class="text-center">
+          <th class="font-weight-bold pink-text">${localStorage.getItem("counter")}</th>
+          <td class="font-weight-bold">${localStorage.getItem("date")}</td>
+          <td class="font-weight-bold text-success">${localStorage.getItem("exchangeFrom")}</td>
+          <td class="font-weight-bold text-success">${localStorage.getItem("exchangeTo")}</td>
+        </tr>
     `;
 
     $tableBody.html(function(i, c){
       return c += printTable;
     });
+
   }
 }());

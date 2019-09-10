@@ -21,7 +21,7 @@
     $.ajax(`https://api.exchangeratesapi.io/history?start_at=${date7Later}&end_at=${date}&symbols=${currency}`, {
       method: 'GET'
     }).done(function(data){
-      document.getElementById('chart').innerHTML = "";
+      $('#chart').empty();
       chart(data, currency);
     });
   }
@@ -50,7 +50,20 @@
 
     let options = {
       chart: {
-        type: 'line'
+        type: 'line',
+        animations: {
+          enabled: true,
+          easing: 'easeinout',
+          speed: 1000,
+          animateGradually: {
+              enabled: true,
+              delay: 150
+          },
+          dynamicAnimation: {
+              enabled: true,
+              speed: 150
+          }
+        }
       },
       series: [{
         name: "1 EUR",
